@@ -35,6 +35,9 @@ LABEL org.opencontainers.image.title="travel-frontend" \
       org.opencontainers.image.description="Travel Locations web UI (React + nginx)" \
       org.opencontainers.image.version="${APP_VERSION}" \
       org.opencontainers.image.revision="${VCS_REF}"
+USER root                                                                
+RUN apk upgrade --no-cache                                                  
+USER 101
 
 # Where nginx forwards /api requests (overridable at runtime).
 ENV BACKEND_URL=http://backend:5000
