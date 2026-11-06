@@ -1,0 +1,25 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.db
+.venv/
+venv/
+
+# node
+node_modules/
+dist/
+coverage/
+
+# os / editors
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,10 @@
+[
+    {"name": "Seoul", "country": "South Korea", "type": "city", "visited": false},
+    {"name": "Tokyo", "country": "Japan", "type": "city", "visited": false},
+    {"name": "Grand Canyon", "country": "USA", "type": "nature", "visited": true, "rating": 5},
+    {"name": "Paris", "country": "France", "type": "city", "visited": true, "rating": 4},
+    {"name": "Barcelona", "country": "Spain", "type": "city", "visited": true, "rating": 5},
+    {"name": "Madrid", "country": "Spain", "type": "city", "visited": false},
+    {"name": "Val Thorens", "country": "France", "type": "ski", "visited": true, "rating": 5},
+    {"name": "Mayrhofen", "country": "Austria", "type": "ski", "visited": true, "rating": 4}
+]

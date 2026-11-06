@@ -1,0 +1,10 @@
+Flask
+Flask-RESTful
+Flask-SQLAlchemy
+Flask-Migrate
+SQLAlchemy
+psycopg2-binary
+gunicorn
+prometheus-flask-exporter
+prometheus-client
+requests

@@ -1,0 +1,68 @@
+# Local development / demo stack:  docker compose up --build
+#   http://localhost:8080        React UI (nginx)
+#   http://localhost:5001/api/v1 Flask API directly (also /metrics, /healthz)
+# Secrets come from .env (copy .env.example first).
+name: travel-app
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: travel
+      POSTGRES_USER: travel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U travel -d travel"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      args:
+        APP_VERSION: local
+    image: travel-backend:local
+    environment:
+      APP_ENV: production
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in .env}
+      POSTGRES_HOST: db
+      POSTGRES_DB: travel
+      POSTGRES_USER: travel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      RUN_MIGRATIONS: "true"
+      SEED_DB: "true"
+      ENRICH_DB: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5001:5000" # 5001: macOS uses 5000 for AirPlay
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/readyz', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        APP_VERSION: local
+    image: travel-frontend:local
+    environment:
+      BACKEND_URL: http://backend:5000
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  db-data:
