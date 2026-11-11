@@ -29,7 +29,9 @@ export default function LocationFormPage() {
 
   // Suggest types that already exist (city, ski, ...) to keep them consistent.
   useEffect(() => {
-    api.stats().then((s) => setKnownTypes(Object.keys(s.by_type).sort())).catch(() => {})
+    api.stats()
+      .then((s) => setKnownTypes(Object.keys(s.by_type).sort((a, b) => a.localeCompare(b))))
+      .catch(() => {})
   }, [])
 
   // In edit mode, load the location and fill the form with it.
