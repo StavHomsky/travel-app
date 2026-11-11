@@ -28,8 +28,8 @@ export default function LocationsPage() {
   useEffect(() => {
     api.stats()
       .then((s) => setOptions({
-        countries: Object.keys(s.by_country).sort(),
-        types: Object.keys(s.by_type).sort(),
+        countries: Object.keys(s.by_country).sort((a, b) => a.localeCompare(b)),
+        types: Object.keys(s.by_type).sort((a, b) => a.localeCompare(b)),
       }))
       .catch(() => {}) // dropdowns just stay empty
   }, [reloadKey])
@@ -73,7 +73,7 @@ export default function LocationsPage() {
 
   const handleDelete = (location) => {
     if (!window.confirm(`Delete ${location.name}?`)) return
-    runAction(() => api.deleteLocation(location.id), `${location.name} was deleted.`)
+    void runAction(() => api.deleteLocation(location.id), `${location.name} was deleted.`)
   }
 
   const hasFilters = JSON.stringify(filters) !== JSON.stringify(EMPTY_FILTERS)

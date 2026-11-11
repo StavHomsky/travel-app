@@ -147,8 +147,8 @@ export default function LocationFormPage() {
 
         {/* Conditional rendering: the rating only exists for visited places. */}
         {form.visited && (
-          <>
-            <label>Your rating</label>
+          <fieldset>
+            <legend>Your rating</legend>
             <StarRating value={form.rating} onChange={(stars) => update('rating', stars)} />
             {form.rating && (
               <button type="button" className="btn" style={{ marginLeft: 12, padding: '6px 12px' }}
@@ -157,7 +157,7 @@ export default function LocationFormPage() {
               </button>
             )}
             <FieldError message={errors.rating} />
-          </>
+          </fieldset>
         )}
 
         <details className="advanced">

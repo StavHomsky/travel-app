@@ -457,6 +457,18 @@ button {
   color: var(--soft);
 }
 
+/* Groups (radios, stars) use fieldset + legend; style the legend like a label. */
+/* (Browsers ignore margin-top on a legend, so the gap goes on the fieldset.) */
+.form-card fieldset {
+  border: none;
+  margin-top: 18px;
+}
+
+.form-card legend {
+  margin-bottom: 8px;
+  color: var(--soft);
+}
+
 .form-card input[type='text'],
 .form-card input[type='number'],
 .form-card input[type='file'],

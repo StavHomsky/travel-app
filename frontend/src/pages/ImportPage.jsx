@@ -68,17 +68,20 @@ export default function ImportPage() {
         <input id="file" type="file" accept=".json,application/json"
           onChange={(e) => setFile(e.target.files[0] || null)} />
 
-        <label>Import Method</label>
-        <div className="checkbox-row">
-          <input type="radio" id="append" name="mode" value="append"
-            checked={mode === 'append'} onChange={() => setMode('append')} />
-          <label htmlFor="append">Append to existing data (duplicates are skipped)</label>
-        </div>
-        <div className="checkbox-row">
-          <input type="radio" id="replace" name="mode" value="replace"
-            checked={mode === 'replace'} onChange={() => setMode('replace')} />
-          <label htmlFor="replace">Replace current data</label>
-        </div>
+        {/* fieldset + legend: the accessible way to label a group of radios */}
+        <fieldset>
+          <legend>Import Method</legend>
+          <div className="checkbox-row">
+            <input type="radio" id="append" name="mode" value="append"
+              checked={mode === 'append'} onChange={() => setMode('append')} />
+            <label htmlFor="append">Append to existing data (duplicates are skipped)</label>
+          </div>
+          <div className="checkbox-row">
+            <input type="radio" id="replace" name="mode" value="replace"
+              checked={mode === 'replace'} onChange={() => setMode('replace')} />
+            <label htmlFor="replace">Replace current data</label>
+          </div>
+        </fieldset>
 
         <button type="submit" className="submit-btn" disabled={busy}>
           {busy ? 'Working…' : 'Import Locations'}
