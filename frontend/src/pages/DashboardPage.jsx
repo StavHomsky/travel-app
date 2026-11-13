@@ -47,7 +47,7 @@ export default function DashboardPage() {
     <>
       <header className="page-header">
         <h1>🌍</h1>
-        <p>Track your visited and dream destinations</p>
+        <p>Track yourdestinations</p>
       </header>
 
       <section className="stats-container">
